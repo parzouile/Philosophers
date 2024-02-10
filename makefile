@@ -6,7 +6,7 @@
 #    By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 23:35:16 by aschmitt          #+#    #+#              #
-#    Updated: 2024/02/09 13:52:02 by aschmitt         ###   ########.fr        #
+#    Updated: 2024/02/10 17:03:45 by aschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,10 @@ SRC_DIR			= srcs/
 OBJ_DIR			= obj/
 
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -I
+CFLAGS			= -Wall -Wextra -Werror -pthread -I
 RM				= rm -f
 
-SRC 			= $(SRC_DIR)philo.c
+SRC 			= $(SRC_DIR)philo.c $(SRC_DIR)utils.c
 
 OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 

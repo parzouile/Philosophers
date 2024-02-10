@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 13:09:52 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/10 17:59:52 by aschmitt         ###   ########.fr       */
+/*   Created: 2023/12/04 12:13:58 by aschmitt          #+#    #+#             */
+/*   Updated: 2024/02/10 17:08:37 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-# include <unistd.h>
-# include <pthread.h>
-# include <stdio.h>
-# include <time.h>
-# include <aio.h>
-# include <sys/time.h>
+long	check_nbr(const char *str)
+{
+	long	n;
+	size_t	i;
 
-long	check_nbr(const char *str);
-
-#endif
+	n = 0;
+	i = 0;
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	{
+		n = n * 10 + (str[i] - '0');
+		i ++;
+	}
+	if (str[i] && n == 0)
+		return (-1);
+	return (n);
+}
