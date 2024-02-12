@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:09:52 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/12 15:51:29 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:06:44 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <stdio.h>
-# include <time.h>
 # include <aio.h>
 # include <sys/time.h>
 # include <stdlib.h>
@@ -26,7 +25,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				id;
 	int				eating;
-	int				meals_eaten;
+	int				meals_eat;
 	size_t			last_meal;
 	size_t			time_to_die;
 	size_t			time_to_eat;
@@ -54,5 +53,6 @@ typedef struct s_program
 
 long	check_nbr(const char *str);
 void	ft_error(char *s, t_program *prog);
+size_t	get_current_time(void);
 
 #endif
