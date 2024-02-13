@@ -6,11 +6,29 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:46:21 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/12 20:21:09 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:16:48 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	end_prog(t_program *prog)
+{
+	int	i;
+
+	i = -1;
+	if (prog->forks)
+	{
+		while (++i < prog->num_of_philos)
+			pthread_mutex_destroy(&(prog->forks[i]));
+		free(prog->forks);
+	}
+	if (prog->philos)
+		free(prog->philos);
+	pthread_mutex_destroy(&prog->write_lock);
+	pthread_mutex_destroy(&prog->dead_lock);
+	pthread_mutex_destroy(&prog->meal_lock);
+}
 
 size_t	get_current_time(void)
 {
@@ -52,27 +70,27 @@ void	set_dead(t_philo *philos)
 
 void	*check_dead(void *p)
 {
-	t_philo *j;
+	t_philo *philo;
 	int		i;
 
-	j = (t_philo *)p;
+	philo = (t_philo *)p;
 	while (1)
 	{
-		i = 0;
-		while (i < j[0].num_of_philos)
+		i = -1;
+		while (++i < philo[0].num_of_philos)
 		{
-			pthread_mutex_lock(j->meal_lock);
-			if (get_current_time() - j->last_meal >= j->time_to_die && j->eating == 0)
+			pthread_mutex_lock(philo[0].meal_lock);
+			if (get_current_time() - philo[0].last_meal >= philo[0].time_to_die && philo[0].eating == 0)
 			{
-				pthread_mutex_unlock(j->meal_lock);
+				pthread_mutex_unlock(philo->meal_lock);
+				printf("%ld %d died\n", get_current_time() - philo[0].start_time, i);
 				break;
 			}
-			pthread_mutex_unlock(j->meal_lock);
-			i++;
+			pthread_mutex_unlock(philo->meal_lock);
 		}
-		if (i < j[0].num_of_philos || all_eat(j))
+		if (i < philo[0].num_of_philos || all_eat(philo))
 		{
-			set_dead(j);
+			set_dead(philo);
 			break ;
 		}
 	}

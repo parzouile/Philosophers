@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:09:52 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/12 20:06:44 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/13 11:56:36 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,15 @@ typedef struct s_program
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;
 	t_philo			*philos;
+	pthread_mutex_t	*forks;
 }					t_program;
 
 long	check_nbr(const char *str);
 void	ft_error(char *s, t_program *prog);
 size_t	get_current_time(void);
+void	end_prog(t_program *prog);
+void	start_philo(t_program *prog);
+void	*check_dead(void *p);
+void	*be_philo(void *p);
 
 #endif
