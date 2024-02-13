@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:58 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/13 12:39:20 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:30:19 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@ int	ft_usleep(size_t milliseconds)
 
 void	eat(t_philo *philo)
 {
+	if (philo->num_of_philos == 1)
+	{
+		pthread_mutex_lock(philo->r_fork);
+		printf("%ld %d has taken a fork\n", get_current_time() - philo->start_time, philo->id);
+		ft_usleep(philo->time_to_die);
+		pthread_mutex_unlock(philo->r_fork);
+		return ;
+	}
 	pthread_mutex_lock(philo->r_fork);
 	printf("%ld %d has taken a fork\n", get_current_time() - philo->start_time, philo->id);
 	pthread_mutex_lock(philo->l_fork);
@@ -88,7 +96,6 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(philo->meal_lock);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
-	
 }
 
 void	*be_philo(void *p)
@@ -98,13 +105,15 @@ void	*be_philo(void *p)
 	
 	philo = (t_philo *)p;
 	if (philo->id % 2 == 0)
-		usleep(1);
+		usleep(2);
 	while (not_dead(philo))
 	{
 		eat(philo);
-		printf("%ld %d is sleeping\n", get_current_time() - philo->start_time, philo->id);
+		if (not_dead(philo))
+			printf("%ld %d is sleeping\n", get_current_time() - philo->start_time, philo->id);
 		ft_usleep(philo->time_to_sleep);
-		printf("%ld %d is thinking\n", get_current_time() - philo->start_time, philo->id);
+		if (not_dead(philo))
+			printf("%ld %d is thinking\n", get_current_time() - philo->start_time, philo->id);
 	}
 	return (NULL); //ou p
 }
