@@ -6,7 +6,7 @@
 #    By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 23:35:16 by aschmitt          #+#    #+#              #
-#    Updated: 2024/02/13 12:02:29 by aschmitt         ###   ########.fr        #
+#    Updated: 2024/02/14 18:28:18 by aschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CC				= cc
 CFLAGS			= -Wall -Wextra -Werror -pthread -g3 -I
 RM				= rm -f
 
-SRC 			= $(SRC_DIR)philo.c $(SRC_DIR)check_dead.c  $(SRC_DIR)utils.c $(SRC_DIR)main.c  
+SRC 			= $(SRC_DIR)philo.c $(SRC_DIR)check_dead.c $(SRC_DIR)utils2.c  $(SRC_DIR)utils.c $(SRC_DIR)main.c  
 
 OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 

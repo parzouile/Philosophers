@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:09:52 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/14 18:02:02 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:27:53 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_philo
 typedef struct s_program
 {
 	int				dead_flag;
-    int             num_of_philos;
+	int				num_of_philos;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;
@@ -60,5 +60,7 @@ void	start_philo(t_program *prog);
 void	*check_dead(void *p);
 void	*be_philo(void *p);
 void	print(t_philo *philo, char *s);
+long	check_nbr(const char *str);
+int		ft_strlen(char *s);
 
 #endif

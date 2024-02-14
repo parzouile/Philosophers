@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:46:21 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/14 18:01:59 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:22:34 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	set_dead(t_philo *philos)
 
 void	*check_dead(void *p)
 {
-	t_philo *philo;
+	t_philo	*philo;
 	int		i;
 
 	philo = (t_philo *)p;
@@ -80,20 +80,18 @@ void	*check_dead(void *p)
 		while (++i < philo[0].num_of_philos)
 		{
 			pthread_mutex_lock(philo[i].meal_lock);
-			if (get_current_time() - philo[i].last_meal >= philo[i].time_to_die && philo[i].eating == 0)
+			if (get_current_time() - philo[i].last_meal >= philo[i].time_to_die
+				&& philo[i].eating == 0)
 			{
 				pthread_mutex_unlock(philo->meal_lock);
 				print(&philo[i], "died");
-				i = -1;
-				break;
+				break ;
 			}
 			pthread_mutex_unlock(philo->meal_lock);
 		}
-		if (i == -1 || all_eat(philo))
-		{
-			set_dead(philo);
+		if (i < philo[0].num_of_philos || all_eat(philo))
 			break ;
-		}
 	}
+	set_dead(philo);
 	return (NULL);
 }

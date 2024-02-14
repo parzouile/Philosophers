@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:11:02 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/14 17:39:17 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:26:28 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ static int	check_args(int ac, char **av)
 	if (ac < 4 || ac > 5)
 		return (1);
 	if (check_nbr(av[0]) == -1 || check_nbr(av[0]) > 200)
-			return (1);
+		return (1);
 	i = 0;
 	while (++i < ac)
 		if (check_nbr(av[i]) == -1)
 			return (1);
 	return (0);
 }
-
 
 static t_philo	new_philo(int i, t_program *prog, char **av)
 {
@@ -99,7 +98,7 @@ int	main(int ac, char **av)
 	if (check_args(ac - 1, av + 1))
 		return (write(2, "Error Args\n", 11), 1);
 	init_prog(&prog, av + 1);
-	prog.forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * prog.num_of_philos);
+	prog.forks = malloc(sizeof(pthread_mutex_t) * prog.num_of_philos);
 	if (!prog.forks)
 		ft_error("Error Malloc\n", &prog);
 	init_forks(&prog.forks, &prog);

@@ -6,47 +6,11 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:58 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/14 18:01:56 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:29:54 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-long	check_nbr(const char *str)
-{
-	long	n;
-	size_t	i;
-
-	n = 0;
-	i = 0;
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
-	{
-		n = n * 10 + (str[i] - '0');
-		i ++;
-	}
-	if (str[i] && n == 0)
-		return (-1);
-	return (n);
-}
-
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-void	ft_error(char *s, t_program *prog)
-{
-	write(2, s, ft_strlen(s));
-	end_prog(prog);
-	exit(1);
-}
 
 int	not_dead(t_philo *philo)
 {
@@ -83,7 +47,7 @@ void	eat(t_philo *philo)
 	if (philo->num_of_philos == 1)
 	{
 		pthread_mutex_lock(philo->r_fork);
-		printf("%ld %d has taken a fork\n", get_current_time() - philo->start_time, philo->id);
+		print(philo, "has taken a fork");
 		ft_usleep(philo->time_to_die);
 		pthread_mutex_unlock(philo->r_fork);
 		return ;
@@ -110,7 +74,6 @@ void	*be_philo(void *p)
 {
 	t_philo	*philo;
 
-	
 	philo = (t_philo *)p;
 	if (philo->id % 2 == 0)
 		ft_usleep(1);
@@ -124,5 +87,5 @@ void	*be_philo(void *p)
 		pthread_mutex_lock(philo->meal_lock);
 		pthread_mutex_unlock(philo->meal_lock);
 	}
-	return (NULL); //ou p
+	return (NULL);
 }

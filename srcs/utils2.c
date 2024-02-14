@@ -1,33 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 11:44:37 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/14 18:19:29 by aschmitt         ###   ########.fr       */
+/*   Created: 2024/02/14 18:27:02 by aschmitt          #+#    #+#             */
+/*   Updated: 2024/02/14 18:28:41 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	start_philo(t_program *prog)
+long	check_nbr(const char *str)
 {
-	pthread_t	check;
-	int			i;
+	long	n;
+	size_t	i;
 
-	pthread_create(&check, NULL, &check_dead, (void *)prog->philos);
-	i = -1;
-	while (++i < prog->num_of_philos)
+	n = 0;
+	i = 0;
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
-		pthread_create(&(prog->philos[i].thread), NULL, &be_philo,
-			(void *)(&prog->philos[i]));
+		n = n * 10 + (str[i] - '0');
+		i ++;
 	}
-	pthread_join(check, NULL);
-	i = -1;
-	while (++i < prog->num_of_philos)
+	if (str[i] && n == 0)
+		return (-1);
+	return (n);
+}
+
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		pthread_join(prog->philos[i].thread, NULL);
+		i++;
 	}
+	return (i);
+}
+
+void	ft_error(char *s, t_program *prog)
+{
+	write(2, s, ft_strlen(s));
+	end_prog(prog);
+	exit(1);
 }
