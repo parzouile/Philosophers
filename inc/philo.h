@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:09:52 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/13 11:56:36 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:02:02 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void	end_prog(t_program *prog);
 void	start_philo(t_program *prog);
 void	*check_dead(void *p);
 void	*be_philo(void *p);
+void	print(t_philo *philo, char *s);
 
 #endif

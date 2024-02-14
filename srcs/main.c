@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:11:02 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/13 11:44:14 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:39:17 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static t_philo	new_philo(int i, t_program *prog, char **av)
 	p.time_to_sleep = check_nbr(av[3]);
 	p.start_time = get_current_time();
 	p.num_of_philos = prog->num_of_philos;
-	if (av[5])
-		p.num_times_to_eat = check_nbr(av[5]);
+	if (av[4])
+		p.num_times_to_eat = check_nbr(av[4]);
 	else
 		p.num_times_to_eat = -1;
 	p.dead = &prog->dead_flag;

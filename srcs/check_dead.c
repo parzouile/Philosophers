@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:46:21 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/13 16:37:52 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:01:59 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ size_t	get_current_time(void)
 int	all_eat(t_philo *philos)
 {
 	int	i;
-	int	all_eat;
+	int	n;
 
 	i = 0;
-	all_eat = 0;
+	n = 0;
 	if (philos[0].num_times_to_eat == -1)
 		return (0);
 	while (i < philos[0].num_of_philos)
 	{
 		pthread_mutex_lock(philos[i].meal_lock);
 		if (philos[i].meals_eat >= philos[i].num_times_to_eat)
-			all_eat++;
+			n++;
 		pthread_mutex_unlock(philos[i].meal_lock);
 		i++;
 	}
-	if (all_eat == philos[0].num_of_philos)
+	if (n == philos[0].num_of_philos)
 		return (1);
 	return (0);
 }
@@ -83,12 +83,13 @@ void	*check_dead(void *p)
 			if (get_current_time() - philo[i].last_meal >= philo[i].time_to_die && philo[i].eating == 0)
 			{
 				pthread_mutex_unlock(philo->meal_lock);
-				printf("%ld %d died\n", get_current_time() - philo[i].start_time, i + 1);
+				print(&philo[i], "died");
+				i = -1;
 				break;
 			}
 			pthread_mutex_unlock(philo->meal_lock);
 		}
-		if (i < philo[0].num_of_philos || all_eat(philo))
+		if (i == -1 || all_eat(philo))
 		{
 			set_dead(philo);
 			break ;
