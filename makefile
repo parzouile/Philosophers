@@ -6,7 +6,7 @@
 #    By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 23:35:16 by aschmitt          #+#    #+#              #
-#    Updated: 2024/02/14 18:28:18 by aschmitt         ###   ########.fr        #
+#    Updated: 2024/02/15 13:20:13 by aschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC_DIR			= srcs/
 OBJ_DIR			= obj/
 
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -pthread -g3 -I
+CFLAGS			= -Wall -Wextra -Werror -I
 RM				= rm -f
 
 SRC 			= $(SRC_DIR)philo.c $(SRC_DIR)check_dead.c $(SRC_DIR)utils2.c  $(SRC_DIR)utils.c $(SRC_DIR)main.c  
@@ -31,7 +31,7 @@ all: 		$(NAME)
 
 $(NAME): 		$(OBJ)
 				@echo $(G)Compiling [$(SRC)]$(X) 
-				@$(CC) -o $(NAME) $(OBJ)
+				@$(CC) -o $(NAME) $(OBJ) -pthread
 				@echo $(G)Compiling [$(NAME)]$(X)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
