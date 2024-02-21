@@ -6,7 +6,7 @@
 #    By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 23:35:16 by aschmitt          #+#    #+#              #
-#    Updated: 2024/02/15 13:20:13 by aschmitt         ###   ########.fr        #
+#    Updated: 2024/02/21 12:21:26 by aschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ $(NAME): 		$(OBJ)
 				@$(CC) -o $(NAME) $(OBJ) -pthread
 				@echo $(G)Compiling [$(NAME)]$(X)
 
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(INC)*.h makefile
 				@mkdir -p $(@D)
 				@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 

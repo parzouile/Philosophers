@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:11:02 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/14 18:26:28 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:25:03 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static t_philo	new_philo(int i, t_program *prog, char **av)
 	p.time_to_eat = check_nbr(av[2]);
 	p.time_to_sleep = check_nbr(av[3]);
 	p.start_time = get_current_time();
+	p.start = &prog->start;
 	p.num_of_philos = prog->num_of_philos;
 	if (av[4])
 		p.num_times_to_eat = check_nbr(av[4]);
@@ -58,6 +59,8 @@ static void	init_prog(t_program *prog, char **av)
 	pthread_mutex_init(&prog->dead_lock, NULL);
 	pthread_mutex_init(&prog->meal_lock, NULL);
 	pthread_mutex_init(&prog->write_lock, NULL);
+	pthread_mutex_init(&prog->start_lock, NULL);
+	prog->start = 0;
 	prog->forks = NULL;
 	prog->philos = (t_philo *)malloc(sizeof(t_philo) * (prog->num_of_philos));
 	if (!prog->philos)
@@ -68,6 +71,7 @@ static void	init_prog(t_program *prog, char **av)
 		prog->philos[i].write_lock = &prog->write_lock;
 		prog->philos[i].dead_lock = &prog->dead_lock;
 		prog->philos[i].meal_lock = &prog->meal_lock;
+		prog->philos[i].start_lock = &prog->start_lock;
 	}
 }
 

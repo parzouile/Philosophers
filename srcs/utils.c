@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:58 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/15 13:59:01 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:30:20 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,21 @@ void	*be_philo(void *p)
 	t_philo	*philo;
 
 	philo = (t_philo *)p;
+	while (1)
+	{
+		pthread_mutex_lock(philo->start_lock);
+		if (*philo[0].start == 1)
+		{
+			pthread_mutex_unlock(philo->start_lock);
+			break ;
+		}
+		pthread_mutex_unlock(philo->start_lock);
+	}
+	
+	philo->start_time = get_current_time();
+	philo->last_meal = philo->start_time;
 	if (philo->id % 2 == 0)
-		ft_usleep(1);
+		ft_usleep(100);
 	while (not_dead(philo))
 	{
 		eat(philo);
@@ -84,8 +97,6 @@ void	*be_philo(void *p)
 		if (not_dead(philo))
 			ft_usleep(philo->time_to_sleep);
 		print(philo, "is thinking");
-		pthread_mutex_lock(philo->meal_lock);
-		pthread_mutex_unlock(philo->meal_lock);
 	}
 	return (NULL);
 }

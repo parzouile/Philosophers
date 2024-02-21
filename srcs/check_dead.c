@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 18:46:21 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/14 18:22:34 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:30:32 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,17 @@ void	*check_dead(void *p)
 	int		i;
 
 	philo = (t_philo *)p;
+	while (1)
+	{
+		pthread_mutex_lock(philo[0].start_lock);
+		if (*philo[0].start == 1)
+		{
+			pthread_mutex_unlock(philo[0].start_lock);
+			break ;
+		}
+		pthread_mutex_unlock(philo[0].start_lock);
+	}
+	
 	while (1)
 	{
 		i = -1;
