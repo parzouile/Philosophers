@@ -6,7 +6,7 @@
 #    By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 23:35:16 by aschmitt          #+#    #+#              #
-#    Updated: 2024/02/21 12:21:26 by aschmitt         ###   ########.fr        #
+#    Updated: 2024/02/22 13:13:57 by aschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,10 @@ SRC_DIR			= srcs/
 OBJ_DIR			= obj/
 
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -I
+CFLAGS			= -Wall -Wextra -Werror -I $(INC)
 RM				= rm -f
 
-SRC 			= $(SRC_DIR)philo.c $(SRC_DIR)check_dead.c $(SRC_DIR)utils2.c  $(SRC_DIR)utils.c $(SRC_DIR)main.c  
+SRC 			= $(SRC_DIR)philo.c $(SRC_DIR)check_dead.c $(SRC_DIR)utils2.c  $(SRC_DIR)utils.c $(SRC_DIR)to_print.c $(SRC_DIR)main.c   
 
 OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 
@@ -36,7 +36,7 @@ $(NAME): 		$(OBJ)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(INC)*.h makefile
 				@mkdir -p $(@D)
-				@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+				@$(CC) $(CFLAGS)  -c $< -o $@
 
 clean:
 				@$(RM) -r $(OBJ_DIR)

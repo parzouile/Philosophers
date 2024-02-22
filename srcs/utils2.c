@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 18:27:02 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/14 18:28:41 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:55:15 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_strlen(char *s)
 
 void	ft_error(char *s, t_program *prog)
 {
-	write(2, s, ft_strlen(s));
 	end_prog(prog);
+	perror(s);
 	exit(1);
 }

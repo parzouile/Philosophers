@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:58 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/21 12:30:20 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/22 13:53:09 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,6 @@ int	ft_usleep(size_t milliseconds)
 	return (0);
 }
 
-void	print(t_philo *philo, char *s)
-{
-	pthread_mutex_lock(philo->write_lock);
-	if (not_dead(philo))
-		printf("%ld %d %s\n", get_current_time() - philo->start_time, philo->id, s);
-	pthread_mutex_unlock(philo->write_lock);
-}
-
 void	eat(t_philo *philo)
 {
 	if (philo->num_of_philos == 1)
@@ -52,9 +44,9 @@ void	eat(t_philo *philo)
 		pthread_mutex_unlock(philo->r_fork);
 		return ;
 	}
-	pthread_mutex_lock(philo->r_fork);
-	print(philo, "has taken a fork");
 	pthread_mutex_lock(philo->l_fork);
+	print(philo, "has taken a fork");
+	pthread_mutex_lock(philo->r_fork);
 	print(philo, "has taken a fork");
 	pthread_mutex_lock(philo->meal_lock);
 	print(philo, "is eating");
@@ -78,24 +70,22 @@ void	*be_philo(void *p)
 	while (1)
 	{
 		pthread_mutex_lock(philo->start_lock);
-		if (*philo[0].start == 1)
+		if (*philo->start != 0)
 		{
+			philo->start_time = *philo->start;
+			philo->last_meal = *philo->start;
 			pthread_mutex_unlock(philo->start_lock);
 			break ;
 		}
 		pthread_mutex_unlock(philo->start_lock);
 	}
-	
-	philo->start_time = get_current_time();
-	philo->last_meal = philo->start_time;
 	if (philo->id % 2 == 0)
 		ft_usleep(100);
 	while (not_dead(philo))
 	{
 		eat(philo);
 		print(philo, "is sleeping");
-		if (not_dead(philo))
-			ft_usleep(philo->time_to_sleep);
+		ft_usleep(philo->time_to_sleep);
 		print(philo, "is thinking");
 	}
 	return (NULL);

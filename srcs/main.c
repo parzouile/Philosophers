@@ -6,15 +6,15 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:11:02 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/21 12:25:03 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/22 13:04:51 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	check_args(int ac, char **av)
+static int check_args(int ac, char **av)
 {
-	int	i;
+	int i;
 
 	if (ac < 4 || ac > 5)
 		return (1);
@@ -27,9 +27,9 @@ static int	check_args(int ac, char **av)
 	return (0);
 }
 
-static t_philo	new_philo(int i, t_program *prog, char **av)
+static t_philo new_philo(int i, t_program *prog, char **av)
 {
-	t_philo		p;
+	t_philo p;
 
 	p.id = i + 1;
 	p.eating = 0;
@@ -49,9 +49,9 @@ static t_philo	new_philo(int i, t_program *prog, char **av)
 	return (p);
 }
 
-static void	init_prog(t_program *prog, char **av)
+static void init_prog(t_program *prog, char **av)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	prog->dead_flag = 0;
@@ -64,7 +64,7 @@ static void	init_prog(t_program *prog, char **av)
 	prog->forks = NULL;
 	prog->philos = (t_philo *)malloc(sizeof(t_philo) * (prog->num_of_philos));
 	if (!prog->philos)
-		ft_error("Malloc Error\n", prog);
+		ft_error("Malloc Error", prog);
 	while (++i < prog->num_of_philos)
 	{
 		prog->philos[i] = new_philo(i, prog, av);
@@ -75,9 +75,9 @@ static void	init_prog(t_program *prog, char **av)
 	}
 }
 
-void	init_forks(pthread_mutex_t **foks, t_program *prog)
+void init_forks(pthread_mutex_t **foks, t_program *prog)
 {
-	int	n;
+	int n;
 
 	n = -1;
 	while (++n < prog->num_of_philos)
@@ -95,16 +95,16 @@ void	init_forks(pthread_mutex_t **foks, t_program *prog)
 	}
 }
 
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
-	t_program	prog;
+	t_program prog;
 
 	if (check_args(ac - 1, av + 1))
 		return (write(2, "Error Args\n", 11), 1);
 	init_prog(&prog, av + 1);
 	prog.forks = malloc(sizeof(pthread_mutex_t) * prog.num_of_philos);
 	if (!prog.forks)
-		ft_error("Error Malloc\n", &prog);
+		ft_error("Error Malloc", &prog);
 	init_forks(&prog.forks, &prog);
 	start_philo(&prog);
 	end_prog(&prog);

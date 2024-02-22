@@ -25,7 +25,7 @@ void	start_philo(t_program *prog)
 			(void *)(&prog->philos[i]));
 	}
 	pthread_mutex_lock(&prog->start_lock);
-	prog->start = 1;
+	prog->start =  get_current_time();
 	pthread_mutex_unlock(&prog->start_lock);
 	pthread_join(check, NULL);
 	i = -1;
