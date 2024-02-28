@@ -6,7 +6,7 @@
 #    By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 23:35:16 by aschmitt          #+#    #+#              #
-#    Updated: 2024/02/22 13:13:57 by aschmitt         ###   ########.fr        #
+#    Updated: 2024/02/28 13:00:44 by aschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC_DIR			= srcs/
 OBJ_DIR			= obj/
 
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -I $(INC)
+CFLAGS			= -Wall -Wextra -Werror -g3 -I $(INC)
 RM				= rm -f
 
 SRC 			= $(SRC_DIR)philo.c $(SRC_DIR)check_dead.c $(SRC_DIR)utils2.c  $(SRC_DIR)utils.c $(SRC_DIR)to_print.c $(SRC_DIR)main.c   

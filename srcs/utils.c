@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:58 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/22 13:53:09 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/28 12:48:29 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	*be_philo(void *p)
 		pthread_mutex_unlock(philo->start_lock);
 	}
 	if (philo->id % 2 == 0)
-		ft_usleep(100);
+		ft_usleep(10);
 	while (not_dead(philo))
 	{
 		eat(philo);

@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:09:42 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/22 13:30:58 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:07:10 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	ft_putnbr(size_t nb)
 
 void	print(t_philo *philo, char *s)
 {
-    	pthread_mutex_lock(philo->write_lock);
-    	if (not_dead(philo))
-        printf("%ld %d %s\n", get_current_time() - philo->start_time, philo->id, s);
+	pthread_mutex_lock(philo->write_lock);
+	if (not_dead(philo))
+		printf("%ld %d %s\n", get_current_time() - philo->start_time, philo->id, s);
 	pthread_mutex_unlock(philo->write_lock);
 }

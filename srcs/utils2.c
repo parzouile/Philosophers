@@ -6,7 +6,7 @@
 /*   By: aschmitt <aschmitt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 18:27:02 by aschmitt          #+#    #+#             */
-/*   Updated: 2024/02/22 12:55:15 by aschmitt         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:01:59 by aschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ long	check_nbr(const char *str)
 		n = n * 10 + (str[i] - '0');
 		i ++;
 	}
-	if (str[i] && n == 0)
+	if (str[i] || n == 0)
 		return (-1);
 	return (n);
 }
